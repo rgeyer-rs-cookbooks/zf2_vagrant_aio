@@ -2,6 +2,7 @@
         ServerAdmin root@localhost
 
         DocumentRoot <%= @params[:docroot] %>
+        EnableSendfile off
         <Directory />
                 Options FollowSymLinks
                 AllowOverride None
