@@ -1,0 +1,1 @@
+default['zf2_vagrant_aio']['php']['version'] = '54'

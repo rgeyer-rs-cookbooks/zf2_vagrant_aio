@@ -7,13 +7,30 @@
 # All rights reserved - Do Not Redistribute
 #
 
+if node['zf2_vagrant_aio']['php']['version'] == '54'
+  execute "Install PHP54 yum repo" do
+    command "rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm"
+  end
+  %w{php54w php54w-cli php54w-common php54w-mysql php54w-pdo php54w-pear php54w-pecl-xdebug}.each do |pkg|
+    package pkg
+  end
+else
+  package "php-pdo"
+  package "php-mysql"
+  package "php-pecl-xdebug"
+end
+
 include_recipe "apache2::default"
 include_recipe "apache2::mod_php5"
 include_recipe "apache2::mod_rewrite"
 include_recipe "mysql::server"
 
-package "php-pdo"
-package "php-mysql"
+file "/etc/php.d/xdebug.ini" do
+  content <<EOF
+; Enable xdebug extension module
+zend_extension=/usr/lib64/php/modules/xdebug.so
+EOF
+end
 
 web_app "zf2" do
   # This is not used, but is required for the provider

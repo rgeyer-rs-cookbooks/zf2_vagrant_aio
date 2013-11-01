@@ -12,3 +12,8 @@ attribute "zf2_vagrant_aio/db/schema",
   :display_name => "ZF2 Vagrant AIO DB Schema",
   :description => "The name of the DB schema expected by the ZF2 app",
   :required => "required"
+
+attribute "zf2_vagrant_aio/php/version",
+  :display_name => "PHP version, one of 53 or 54",
+  :required => "optional",
+  :default => "54"
